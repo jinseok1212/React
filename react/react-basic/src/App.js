@@ -1,19 +1,21 @@
 import { Fragment } from "react";
-import StateComponent from "./component/StateComponent";
-import StateComponentQ from "./component/StateComponentQ";
-import ClassComponent from "./component/ClassComponent";
+import IterationComponent from "./component/IterationComponent";
+import IterationComponent2 from "./component/IterationComponent2";
+import IterationComponentQ from "./component/IterationComponentQ";
+import IterationComponentQ2 from "./component/IterationComponentQ2";
+
 function App() {
-
-  return(
+  return (
     <Fragment>
-      <StateComponent/>
-      <br/>
-      <StateComponentQ/>
-      <br/>
-      <ClassComponent name="홍길동" age={20}/>
-
+      <IterationComponent/>
+      <hr/>
+      <IterationComponent2/>
+      <hr/>
+      <IterationComponentQ/>
+      <hr/>
+      <IterationComponentQ2/>
     </Fragment>
   )
-
 }
+
 export default App;
