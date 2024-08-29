@@ -3,7 +3,6 @@ import { useState } from "react";
 const IterationComponentQ2 = () => {
     //1 - select는 컴포넌트반복으로 option태그를 생성합니다.
     const select = ['HTML', 'Javascript', 'CSS', 'Java', 'Oracle', 'Mysql'];
-    const selectList = select.map((value, index) => <option key={index} value={value}>{value}</option>)
 
     //2 - 아래 데이터는 state로 관리하고 화면에 li태그로 반복해주세요 .
     const data = [
@@ -15,37 +14,45 @@ const IterationComponentQ2 = () => {
         {id: 6, type: 'CSS', teacher: '박찬호'},
         {id: 7, type: 'HTML', teacher: 'coding404'},
     ];
-
-    const[dataList, setDataList] = useState(data);
-    const newList = dataList.map(value => <li>{value.type}-{value.teacher}</li>)
+    const [list, setList] = useState(data);
 
     //3 - 셀렉트박스가 체인지되면 이벤트객체를 활용해서 선택된 값만 필터링해주세요.
-    const changeList = (e) => {
-        let newList = dataList.filter((value) => {
-            return value.id === id;
-        })
+    let handleChange = (e) => {
+        //data에서 필터링
+        let newList = data.filter( item => item.type === e.target.value );
+        setList(newList);
     }
-	
 	//4- input값은 state로 관리합니다.
-	
-	//5 - 검색기능 - 원본 data에서 필터링으로 검색값을 찾아 state를 업데이트 합니다.
+    //5 - 검색기능 - 원본 data에서 필터링으로 검색값을 찾아 state를 업데이트 합니다.
+    const [input, setInput] = useState('');
+    const handleClick = () => {
 
+        let newList = data.filter( item => {
+            let str = item.type.concat(item.teacher).toLowerCase(); //문자열 붙이기
+            return str.includes(input); //포함되어 있으면 true
+        });
+        setList(newList); //state변경
+    }
 
     return (
-        <div>
+        <div>java
 			<hr/>
             <h3>실습</h3>
-            Search: <input type="text" />
-            <button >검색</button>
+            Search: <input type="text" value={input} onChange={ (e) => setInput(e.target.value) }/>
+            <button onClick={handleClick} >검색</button>
 
             <br/>
             
 			과목찾기:
-            <select  onChange={changeList()}>
-            {selectList}
+            <select onChange={handleChange}>
+                {
+                    select.map( (item, index) => <option key={index}>{item}</option>)
+                }
             </select>
             <ul>
-                {newList}
+                {
+                    list.map( item => <li key={item.id}>{item.type}-{item.teacher}</li>)
+                }
             </ul>
         </div>
     )
